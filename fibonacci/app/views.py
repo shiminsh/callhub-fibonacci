@@ -47,10 +47,8 @@ def home(request):
     if n:
         if Fibonacci.objects.filter(number=n).exists():
             obj = Fibonacci.objects.filter(number=n)
-            print "existsexistsexistsexistsexists"
             value = obj[0].value
             context['fibonacci'] = value
-            print context
         elif int(n) < 1000000:
             a,b = 1,1
             for i in range(int(n)-1):
@@ -58,12 +56,9 @@ def home(request):
             context['fibonacci'] = a
             data = Fibonacci(number=n, value=a)
             data.save()
-            print context
         else:
             ans = matrix_pow(fib_matrix, int(n), 1000000007)[0][1]
             context['fibonacci'] = ans
             data = Fibonacci(number=n, value=ans)
             data.save()
-            print "context"
-            print context
     return render(request, 'index.html', context)

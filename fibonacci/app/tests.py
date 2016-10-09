@@ -1,5 +1,5 @@
 from django.test import TestCase
-from app.models	import Fibonacci
+from app.models import Fibonacci
 from app.views import matrix_pow, fib_matrix
 
 # Create your tests here.
@@ -34,6 +34,5 @@ class FibonacciTestCase(TestCase):
 
     # views function test case
     def test_views_function(self):
-    	data = matrix_pow(fib_matrix, int(10000000), 1000000007)[0][1]
-    	print data
-    	self.assertEqual(data, 490189494)
+        data = matrix_pow(fib_matrix, int(10000000), 1000000007)[0][1]
+        self.assertEqual(data, 490189494)
