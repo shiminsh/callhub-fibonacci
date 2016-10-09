@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from app.models import Fibonacci
+from django.core.cache import cache
 
 # Create your views here.
 
@@ -44,8 +45,12 @@ def matrix_pow(M, power, mod):
 def home(request):
     context = {}
     n = request.GET.get('fibonacci', None)
+    key = str(n)
     if n:
-        if Fibonacci.objects.filter(number=n).exists():
+        if cache.get(key):
+            data = cache.get(key)
+            context['fibonacci'] = data
+        elif Fibonacci.objects.filter(number=n).exists():
             obj = Fibonacci.objects.filter(number=n)
             value = obj[0].value
             context['fibonacci'] = value
@@ -56,9 +61,11 @@ def home(request):
             context['fibonacci'] = a
             data = Fibonacci(number=n, value=a)
             data.save()
+            cache.set(key, str(a))
         else:
             ans = matrix_pow(fib_matrix, int(n), 1000000007)[0][1]
             context['fibonacci'] = ans
             data = Fibonacci(number=n, value=ans)
             data.save()
+            cache.set(key, str(ans))
     return render(request, 'index.html', context)
