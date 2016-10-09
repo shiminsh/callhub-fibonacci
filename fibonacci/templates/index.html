@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<title> Fibonacci Series</title>
+</head>
+<body>
+<form name="newSearch">
+    <div class="row">
+        <div class="col-md-6" >
+                <input class="form-control" placeholder="Enter number" name="fibonacci" type="text"/>
+        </div>
+    
+    
+    <div class="col-md-4">
+          <button class="btn btn-primary btn-sm" id="search" type="submit">Find
+      </button>
+    </div>
+     </div>
+</form>
+{% if fibonacci %}
+<p>Fibonacci of the number is {{ fibonacci }}</p>
+{% endif %}
+</body>
+</html>
